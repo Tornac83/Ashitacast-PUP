@@ -1,0 +1,254 @@
+<ashitacast>
+    <settings> <!--Contains settings specific to this xml, must be set to true/false to override default-->
+        <buffupdate>true</buffupdate> <!--Determines if your idlegear will be parsed when you gain/lose a buff. Default: TRUE -->
+        <statusupdate>true</statuspdate> <!--Determines if your idlegear will be parsed when you change status(stand/rest/engage/etc).  Default: TRUE -->
+        <hpupdate>false</hpupdate> <!--Determines if your idlegear will be parsed when your HP % changes.  Default: FALSE -->
+        <autoupdate>true</autoupdate> <!--Determines if your idlegear will be parsed on outgoing status updates(roughly every 350ms).  Default: FALSE -->
+    </settings>
+   
+    <!-- Ok Here is the First Ever Pup.xml  Still under construction.     Will Post a more friendly version as i work on it. Enjoy or Hate it ;p -->
+	
+	<init> <!--Used for startup commands, parsed once when XML is loaded.. use for keybinds, macro book changes, variable setup, whatever-->
+		<!--Equip tags will not do anything here.  Rules and all other tags will.-->
+		<if p_subjob= "run">
+		<command>/macro book 9</command>
+		<command delay="1000">/macro set 10</command> <!--I recommend a delay when using macro book and set changes, seems the client doesn't always like both changed at once?-->
+		</if>
+		<elseif p_subjob= "war">
+		<command>/macro book 9</command>
+		<command delay="1000">/macro set 1</command> <!--I recommend a delay when using macro book and set changes, seems the client doesn't always like both changed at once?-->
+		</elseif>
+		<setvar name="ManeuverCombo" value="1" /> <!--Set a variable to a specific value.-->
+		<addtochat color="35">Automation set to StandardDD1 Fire/Light/Wind as Default.</addtochat>
+	</init>
+
+	<sets> <!-- Contains all of your sets.-->
+
+		<set name="ManueverSet">
+			<main augment="D10562490811660">Ohtas</main>
+			<range>Animator P</range>
+			<ammo>Automat. Oil +3</ammo>
+			<head>Heyoka Cap</head>
+			<body>Tali'ah manteel +2</body>
+			<hands>Pup. Dastanas</hands>
+			<legs>Heyoka Subligar</legs>
+			<feet>Tali'ah Crackows +2</feet>
+			<neck>Bfn. Collar +1</neck>
+			<waist>Hurch'lan Sash</waist>
+			<ear1>Mache Earring</ear1>
+			<ear2>Mache Earring</ear2>
+			<ring1>Varar Ring</ring1>
+			<ring2>Varar Ring</ring2>
+			<back augment="S10133888012418575">Visucius's Mantle</back>
+		</set>
+		<set name="TpSet">
+			<main augment="D10562490811660">Ohtas</main>
+			<range>Animator P</range>
+			<ammo>Automat. Oil +3</ammo>
+			<head>Heyoka Cap</head>
+			<body>Tali'ah manteel +2</body>
+			<hands>Tali'ah Gages +2</hands>
+			<legs>Heyoka Subligar</legs>
+			<feet>Tali'ah Crackows +2</feet>
+			<neck>Pup. Collar</neck>
+			<waist>Moonbow Belt</waist>
+			<ear1>Mache Earring</ear1>
+			<ear2>Mache Earring</ear2>
+			<ring1>Varar Ring</ring1>
+			<ring2>Varar Ring</ring2>
+			<back augment="S10133888012418575">Visucius's Mantle</back>
+		</set>
+		<set name="StrSet">
+			<main augment="D10562490811660">Ohtas</main>
+			<range>Animator P</range>
+			<ammo>Automat. Oil +3</ammo>
+			<head>Hizamaru Somen +1</head>
+			<body>Hiza. Haramaki +2</body>
+			<hands>Hizamaru Kote +1</hands>
+			<legs>Hiza. Hizayoroi +2</legs>
+			<feet>Hiza. Sune-Ate +1</feet>
+			<neck>Lacono Neck. +1</neck>
+			<waist>Moonbow Belt</waist>
+			<ear1>Mache Earring</ear1>
+			<ear2>Mache Earring</ear2>
+			<ring1>Puissance Ring</ring1>
+			<ring2>Puissance Ring</ring2>
+			<back augment="S1099767091046418473">Visucius's Mantle</back>
+		</set>
+	</sets>
+
+	<inputcommands> <!--This allows you to set up commands to do specific things.  Whenever the typed command is input, it's section is parsed.-->
+		<cmd input="/StandardDD1"> <!--Reads through this node when the command is input. -->
+			<setvar name="ManeuverCombo" value="1" /> <!--Set a variable to a specific value.-->
+			<addtochat color="35">Automation set to StandardDD1 Fire/Light/Wind.</addtochat>
+
+		</cmd>
+		<cmd input="/StandardDD2"> <!--Reads through this node when the command is input. -->
+			<setvar name="ManeuverCombo" value="2" /> <!--Set a variable to a specific value.-->
+			<addtochat color="35">Automation set to StandardDD2 Fire/Fire/Light.</addtochat>
+		</cmd>
+		<cmd input="/StandardDD3"> <!--Reads through this node when the command is input. -->
+			<setvar name="ManeuverCombo" value="3" /> <!--Set a variable to a specific value.-->
+			<addtochat color="35">Automation set to StandardDD3 Fire/Light/Wind no Overload Change.</addtochat>
+		</cmd>
+		<cmd input="/StandardDD4"> <!--Reads through this node when the command is input. -->
+			<setvar name="ManeuverCombo" value="5" /> <!--Set a variable to a specific value.-->
+			<addtochat color="35">Automation set to StandardDD4 Fire/Fire/Wind no Overload Change.</addtochat>
+		</cmd>
+		<cmd input="/RangedDD1"> <!--Reads through this node when the command is input. -->
+			<setvar name="ManeuverCombo" value="4" /> <!--Set a variable to a specific value.-->
+			<addtochat color="35">Automation set to RangedDD1 Wind/Wind/Wind with FireFireWind Overload.</addtochat>
+		</cmd>
+	</inputcommands>
+
+    <idlegear>
+
+        <if p_status="engaged"><equip set="TpSet" /></if>
+           
+<!-- Here are the Maneuver Numbers for each element.
+ 
+   [300] = "Fire Maneuver"
+   [301] = "Ice Maneuver"
+   [302] = "Wind Maneuver"
+   [303] = "Earth Maneuver"
+   [304] = "Thunder Maneuver"
+   [305] = "Water Maneuver",
+   [306] = "Light Maneuver",
+   [307] = "Dark Maneuver",
+   
+    -->
+	
+		<if p_status="engaged|idle">
+	
+			<if BuffActive="!252">	
+			
+				 <if pet_active="true">
+				 
+					<if advanced="(%p_status=engaged)&(%pet_status=idle)">
+						<command>/pet "deploy" &lt;t&gt;</command>
+					</if>
+
+					<if BuffActive="299">
+					   <command>/ja "Cooldown" &lt;me&gt;</command>
+					</if>
+							   
+					<if ad_name="!*Maneuver">
+						<if advanced="$ManeuverCombo=1">
+						
+							<if BuffActive="!300">
+							   <command>/ja "Fire Maneuver" &lt;me&gt;</command>
+							</if>
+				 
+							<elseif BuffActive="!306">
+							   <command>/ja "Light Maneuver" &lt;me&gt;</command>
+							</elseif>
+				 
+							<elseif BuffActive="166&!304">
+							   <command>/ja "Thunder Maneuver" &lt;me&gt;</command>
+							</elseif>
+							
+							<elseif BuffActive="!166&!302">
+							   <command>/ja "Wind Maneuver" &lt;me&gt;</command>
+							</elseif>
+						
+						</if>
+					
+						<if advanced="$ManeuverCombo=2">
+						
+							<if BuffActive="!166&!300x2">
+							   <command>/ja "Fire Maneuver" &lt;me&gt;</command>
+							</if>
+							
+							<elseif BuffActive="!306">
+							   <command>/ja "Light Maneuver" &lt;me&gt;</command>
+							</elseif>
+
+							<elseif BuffActive="166&!300">
+							   <command>/ja "Fire Maneuver" &lt;me&gt;</command>
+							</elseif>
+
+							<elseif BuffActive="166&!304">
+							   <command>/ja "Thunder Maneuver" &lt;me&gt;</command>
+							</elseif>				
+							
+						</if>
+					
+						<if advanced="$ManeuverCombo=3">
+						
+							<if BuffActive="!300">
+							   <command>/ja "Fire Maneuver" &lt;me&gt;</command>
+							</if>
+							
+							<elseif BuffActive="!306">
+							   <command>/ja "Light Maneuver" &lt;me&gt;</command>
+							</elseif>
+
+							<elseif BuffActive="!302">
+							   <command>/ja "Wind Maneuver" &lt;me&gt;</command>
+							</elseif>
+						</if>
+
+						<if advanced="$ManeuverCombo=4">
+						
+							<if BuffActive="!166&!302x3">
+							   <command>/ja "Wind Maneuver" &lt;me&gt;</command>
+							   
+							</if>
+				 
+							<elseif BuffActive="166&!300x2">
+							   <command>/ja "Fire Maneuver" &lt;me&gt;</command>
+							</elseif>
+							
+							<elseif BuffActive="166&!302&300x2">
+							   <command>/ja "Wind Maneuver" &lt;me&gt;</command>
+							</elseif>
+						
+						</if>	
+
+						<if advanced="$ManeuverCombo=5">
+						
+							<if BuffActive="!300x2">
+							   <command>/ja "Fire Maneuver" &lt;me&gt;</command>
+							</if>
+				 
+							<elseif BuffActive="300x2&!302">
+							   <command>/ja "Wind Maneuver" &lt;me&gt;</command>
+							</elseif>
+						
+						</if>							
+	
+					</if>
+				</if>
+			</if>
+         </if>                
+       
+    </idlegear>
+	
+    <jobability>
+                   
+         <if ad_name="*Maneuver">
+            <equip set="ManueverSet" />
+        </if>      
+       
+    </jobability>
+ 
+    <weaponskill>
+	
+        <if ad_name="Victory Smite">
+            <equip set="StrSet" />
+			<addtochat color="35">/p Victory Smite.</addtochat>
+        </if>
+		
+        <if ad_name="Stringing Pummel">
+            <equip set="StrSet" />
+			<addtochat color="35">/p Stringing Pummel.</addtochat>
+        </if>
+		
+        <if ad_name="Shijin Spiral">
+            <equip set="StrSet" />
+			<addtochat color="35">/p Shijin Spiral.</addtochat>
+        </if>
+		
+    </weaponskill>
+	
+</ashitacast>
